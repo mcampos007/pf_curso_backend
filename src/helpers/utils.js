@@ -8,7 +8,11 @@ import passport from 'passport';
 import { faker } from '@faker-js/faker';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirnameutil = dirname(__filename);
+const __dirnameIndex = __dirnameutil.lastIndexOf('src');
+const __dirname = __dirnameutil.slice(0, __dirnameIndex + 3);
+
+//path.normalize(__dirname);
 const categories = [
   'category_1',
   'category_2',

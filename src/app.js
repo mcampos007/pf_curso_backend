@@ -95,6 +95,7 @@ app.use(express.static(`${__dirname}/public`));
 
 //Configuración del motor de vistas Handlebars:
 //Inicializndo el motor
+// console.log(__dirname);
 app.engine(
   'hbs',
   handlebars.engine({

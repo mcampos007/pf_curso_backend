@@ -1,0 +1,123 @@
+<nav class="navbar navbar-transparent navbar-absolute">
+    	<div class="container">
+        	{{> navbar}}
+    	</div>
+</nav>
+<div class="wrapper">
+	<div class="header header-filter" style="background-image: url('../assets/img/city.jpg'); background-size: cover; background-position: top center;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3">
+					<div class="card card-signup">
+
+						{{#if error_login}}
+						<div class="alert alert-danger">
+							<div class="container-fluid">
+							<div class="alert-icon">
+								<i class="material-icons">error_outline</i>
+							</div>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true"><i class="material-icons">clear</i></span>
+							</button>
+							<b>Error Alert:</b> {{ msgErrorLogin}} 
+							</div>
+						</div>
+						{{/if}}
+
+						<div class="header header-primary text-center">
+							<h4>Profile</h4>
+							<div class="social-line">
+								{{!-- <a href="#loginfacebook" class="btn btn-simple btn-just-icon">
+									<i class="fa fa-facebook-square"></i>
+								</a>
+								<a href="#logitwitter" class="btn btn-simple btn-just-icon">
+									<i class="fa fa-twitter"></i>
+								</a>
+								<a href="#logingoole" class="btn btn-simple btn-just-icon">
+									<i class="fa fa-google-plus"></i>
+								</a> --}}
+							</div> 
+						</div>
+						<p class="text-divider"></p>
+						
+						{{!-- <form class="form"  > --}}
+						
+							<form class="form" id="profileForm" enctype="multipart/form-data">
+								<input type="hidden" name="destination" id="destination" value="avatar"/>
+								<input type="hidden" name="userId" id="userId" value={{userId}}/>
+								
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="inputEmail4">Nombre</label>
+										{{!-- <input type="email" class="form-control" id="inputEmail4" placeholder="Email"> --}}
+										<input type="text" class="form-control" placeholder="First Name..." name="first_name" value="{{name}}" readonly>
+										
+									</div>
+									<div class="form-group col-md-6">
+									<label for="inputPassword4">Apellido</label>
+									<input type="text" class="form-control" placeholder="Apellido..." name="last_name" value="{{last_name}}" readonly>
+									{{!-- <input type="password" class="form-control" id="inputPassword4" placeholder="Password"> --}}
+									</div>
+								</div>
+								<div class="form-row">
+									<div class="form-group col-md-6">
+									<label for="inputPassword4">Email</label>
+									<input type="text" class="form-control" placeholder="Email..." name="email" id="email" value="{{email}}" readonly>
+									{{!-- <input type="password" class="form-control" id="inputPassword4" placeholder="Password"> --}}
+									</div>
+									<div class="form-group col-md-2">
+										<div class="form-group">
+											<label for="inputAddress">Edad</label>
+											{{!-- <input type="text" class="form-control profile" id="inputAddress" placeholder="1234 Main St"> --}}
+											<input type="text" class="form-control" placeholder="Age..." name="age" value="{{age}}" readonly>
+										</div>
+									</div>
+									<div class="form-group col-md-4">
+										<div class="form-group">
+											<label for="inputAddress2" style="margin-left:10px;">Rol</label>
+											{{!-- <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"> --}}
+											<input type="text" class="form-control" placeholder="Role..." name="role" value="{{role}}" readonly>
+										</div>
+									</div>
+									
+							
+								</div>
+								<div class="col-sm-2 col-sm-offset-1">
+									<img src={{avatar}} alt='avatar' height='50px' class="img-circle img-responsive"/>
+								</div>
+								 
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="profile">Seleciona una Imágen de Perfil</label>
+										<input type="file" class="btn btn-primary" id="profile" name="profile">
+									</div>
+									
+								</div>
+								<div class="form-group">
+									{{!-- <div class="form-check">
+									<input class="form-check-input" type="checkbox" id="gridCheck">
+									<label class="form-check-label" for="gridCheck">
+										Check me out
+									</label>
+									</div> --}}
+									<div class="form-group col-md-6">
+									<button type="submit" class="btn btn-primary" >Subir Avatar</button>
+									</div>
+								</div>
+								
+								</form>
+							
+						{{!-- </form>  --}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	{{> footer}}
+
+	</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script  type="module" src="/js/uploadavatar.js"></script>
