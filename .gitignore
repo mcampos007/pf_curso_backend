@@ -1,1 +1,4 @@
 node_modules
+/src/config/.env.production
+/src/config/.env.local
+/src/config/.env.development
