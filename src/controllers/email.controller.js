@@ -117,7 +117,7 @@ export const sendEmailWithAttachments = (req, res) => {
 export const sendRegistrationEmail = (req, res) => {
   try {
     const email = req.query.email;
-    console.log(email);
+
     mailOptionsRegister.to = email;
     mailOptionsRegister.html = `
         <div>
@@ -130,8 +130,8 @@ export const sendRegistrationEmail = (req, res) => {
         console.log(error);
         res.status(400).send({ message: 'Error', payload: error });
       } else {
-        console.log('Message sendt: %s', info.messageId);
-        console.log(info);
+        // console.log('Message sendt: %s', info.messageId);
+        // console.log(info);
         res.send({ message: 'Success', payload: info });
       }
     });

@@ -45,7 +45,7 @@ export const uploadDocuments = multer({
   storage: storageDocuments,
   // si se genera algun error, lo capturamos
   onError: function (err, next) {
-    console.log(err);
+    console.log(1, err);
     next();
   },
 });

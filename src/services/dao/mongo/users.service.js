@@ -18,8 +18,8 @@ export default class UserDao {
   };
 
   findById = async (id) => {
-    // console.log(81, id);
     let result = await userModel.findById(id);
+
     return result;
   };
 

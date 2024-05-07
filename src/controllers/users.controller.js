@@ -329,28 +329,65 @@ export const uploadProfile = async (req, res) => {
   //}
 };
 
+export const uploadDocument = async (req, res) => {
+  // try {
+  const { uid } = req.params;
+
+  let cantFiles = 0;
+  let payload = {};
+  // console.log(2, uid);
+  const filesArray = req.files; // Suponiendo que req.files es tu array de archivos
+
+  for (const file of filesArray) {
+    const user = await findById(req, res);
+    if (user) {
+      const reference = `images/documents/${file.filename}`;
+
+      const newDocument = {
+        name: 'document',
+        reference: reference,
+      };
+
+      if (!user.documents) {
+        user.documents = [];
+      }
+
+      user.documents.push(newDocument);
+      const status = `Se han subido ${cantFiles + 1} de Documentos`;
+
+      const data = {
+        uid: uid,
+        newDocument: newDocument,
+        status: status,
+      };
+      const resultDocument = await updateDocument(data, res);
+      //result = resultDocument;
+
+      cantFiles++;
+      // Actualizar el status del usuario indicando que se han subido x imagens de profile
+      payload.document = newDocument;
+    }
+  }
+  res.status(200).send({ status: 'ok', payload });
+  //} catch (error) {
+  // res.status(500).send({ status: 'No se subieron archivos', payload: error });
+  //}
+};
 export const getAvatar = async (uid, res) => {
   try {
     // let { uid } = req.params;
+    const userExist = await userService.findById(uid);
+    if (!userExist) {
+      return res.status(500).send({
+        status: 'Error',
+        payload: { message: 'El usuario no existe' },
+      });
+    }
     const avatar = await userService.getAvatar(uid);
     return avatar;
   } catch (error) {
-    console.log(error);
-    res.send(error);
+    //console.log(error);
+    res.status(500).send({ status: 'error', error });
+    //return res.send('Error');
   }
 };
-//Controlador para almacenar el archivo
-// export const uploadFiles = async function (req, res) {
-//   const uid = req.params.uid;
-//   const formData = req.body;
-//   const profileFile = req.file;
-//   const destination = req.body.destination;
-
-//   console.log(0, uid);
-//   console.log(1, formData);
-
-//   console.log('Archivo:', profileFile);
-//   console.log('Destino:', destination);
-//   // console.log(2, req.file);
-//   res.status(201).send({ error: 'listo' });
-// };
