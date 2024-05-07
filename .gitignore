@@ -1,4 +1,6 @@
 node_modules
-src/config/.env.production
-src/config/.env.local
-src/config/.env.development
+# Ignorar todos los archivos .env dentro del directorio config
+config/**/*.env
+
+# Excluir los archivos .env.example.*
+!config/**/*.env.example.*
