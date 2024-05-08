@@ -1,5 +1,5 @@
 //import { Router } from "express";
-import CustomRouter from '../api/custom.router.js';
+import CustomRouter from './custom.router.js';
 //import { validateProduct } from '../../utils/validateProduct.js';
 import {
   getAll,
@@ -11,7 +11,7 @@ import {
   getProducts,
 } from '../../controllers/products.controller.js';
 
-import errorHandler from '../../services/errors/middlewares/index.js';
+import errorHandler from '../../middlewares/errors/index.js';
 
 //import __dirname from "../../utils.js";
 

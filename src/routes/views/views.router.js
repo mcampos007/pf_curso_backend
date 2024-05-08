@@ -191,7 +191,6 @@ export default class ViewsRouter extends CustomRouter {
     //Products
     this.get('/products', ['USER'], async (req, res) => {
       try {
-        console.log(req.user);
         const { limit, page, query, sort } = req.query;
         const apiUrl = `http://localhost:${config.port}/api/products`;
         const response = await axios.get(apiUrl, {
@@ -208,7 +207,8 @@ export default class ViewsRouter extends CustomRouter {
         if (req.user.role === 'admin') isAdmin = true;
         if (req.user.role === 'premium') isPremium = true;
         if (req.user.role === 'user') isUser = true;
-        const products = response.data;
+        const products = response.data.payload;
+        console.log(products);
         const data = {
           title: 'profile-page',
           bodyClass: 'profile-page',

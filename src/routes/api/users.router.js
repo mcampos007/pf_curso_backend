@@ -1,5 +1,5 @@
-import CustomRouter from './api/custom.router.js';
-import { validateUser } from '../helpers/validateUser.js';
+import CustomRouter from './custom.router.js';
+import { validateUser } from '../../helpers/validateUser.js';
 import {
   getAll,
   current,
@@ -15,8 +15,8 @@ import {
   uploadDocument,
   getAvatar,
   //sendLinkToPasswordReset,
-} from '../controllers/users.controller.js';
-import { uploadFiles, uploadDocuments } from '../helpers/multer.js';
+} from '../../controllers/users.controller.js';
+import { uploadFiles, uploadDocuments } from '../../helpers/multer.js';
 
 // import multer from 'multer';
 // const upload = multer({ dest: '/src/public/images' });

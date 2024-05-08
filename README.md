@@ -41,7 +41,7 @@ Este proyecto es el trabajajo final del curso de Back End de CoderHouse, el mism
 
 - **Servidor Express:** Se implementa el patrón singleton para la conexón a la base de datos y por medio de variables de entorno se puede decidir entre el entorno de producción : npm run prod o desarrollo npm run local. En el primer caso la información se persiste en mongo atlas y el el segundo en el local host. en cualquiera de los dos casos express esucha en el puerto 8080.
 
-- **Registro de usuario:**. A traves del enpoint: http://{nombre del dominio}:8080/api/users/register . Mas información sobre el uso en /apidocs. Si el Registro se realiza por medio del front end se puede apreciar el funcionamiento de /api/email/registro
+- **Registro de usuario:**. A traves del enpoint: http://{nombre del dominio}:8080/api/users/register . Mas información sobre el uso en /apidocs. Si el Registro se realiza por medio del front end se puede apreciar el funcionamiento de POST /api/email/registro
 
 - **Logín de usuario:**. A traves del enpoint: http://{nombre del dominio}:8080/api/users/login. Mas información sobre el uso en /apidocs
 
@@ -51,8 +51,10 @@ Este proyecto es el trabajajo final del curso de Back End de CoderHouse, el mism
 
 - **Cambiar de usuario a usuario premium:** /api/users/premium permite cambiar de rol de usuario a premium y veceversa, para el primer caso es necesario que el la colección del usuario contenga los documentos indicados en el párrafo anterior
 
-- **Recuperar todos los usuarios :** Se requiere nivel de admin
-- **:** La
+- **Recuperar todos los usuarios :** Se requiere nivel de admin, el end point es GET /api/users/
+
+- **Productos:** en api/products se encuentran los end points para (Crear,listar y actualizar products)
+
 - **:** La- **:** La
 
 ## Instalación y ejecución
@@ -72,3 +74,7 @@ npm run local o npm run prod
 usuario adiminisrador : superMario, password: Bross
 
 ```
+
+## Test con Postman
+
+- **:** Postman- **:** Se adjunta un Json con pruebas para los distintos endpoint. el nombre del Json es LaPFEcommerce.postman_collection
