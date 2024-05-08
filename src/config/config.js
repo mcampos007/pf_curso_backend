@@ -37,7 +37,8 @@ switch (environment) {
     filesetting = './src/config/.env.test';
     break;
   default:
-    filesetting = './src/config/.env.development';
+    // filesetting = './src/config/.env.development';
+    filesetting = './src/config/.env.production';
 }
 
 /* dotenv.config({

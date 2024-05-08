@@ -77,4 +77,4 @@ usuario adiminisrador : superMario, password: Bross
 
 ## Test con Postman
 
-- **:** Postman- **:** Se adjunta un Json con pruebas para los distintos endpoint. el nombre del Json es LaPFEcommerce.postman_collection
+- **:** Postman- **:** Se adjunta un Json con pruebas para los distintos endpoint. el nombre del Json es PFEcommerce.postman_collection
