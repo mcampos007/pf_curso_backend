@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3aae1038-5dfe-4dc9-a34d-6a384ab57764",
+		"_postman_id": "c764da26-f6f4-457e-8408-d9765b11e964",
 		"name": "PFEcommerce",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31125899",
-		"_collection_link": "https://orange-moon-137435.postman.co/workspace/New-Team-Workspace~d607b7a8-4760-4761-aa22-82d07d620a2e/collection/31125899-3aae1038-5dfe-4dc9-a34d-6a384ab57764?action=share&source=collection_link&creator=31125899"
+		"_exporter_id": "31125899"
 	},
 	"item": [
 		{
@@ -47,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"usuario@usuario\",\r\n    \"password\": \"2123qwe\"\r\n}",
+							"raw": "{\r\n    \"email\": \"crivelli@infocam.com.ar\",\r\n    \"password\": \"123qwe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -171,7 +170,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/users/premium/6622aca48e5d943e750fce84",
+							"raw": "http://localhost:8080/api/users/premium/6638efc6e425d42fbeb1c9e7",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -181,7 +180,7 @@
 								"api",
 								"users",
 								"premium",
-								"6622aca48e5d943e750fce84"
+								"6638efc6e425d42fbeb1c9e7"
 							]
 						}
 					},
@@ -324,7 +323,7 @@
 					]
 				},
 				{
-					"name": "uploadDocument",
+					"name": "uploadIdentificacion",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -342,14 +341,19 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "profile",
+									"key": "documents",
 									"type": "file",
-									"src": "/C:/Users/mcamp/Pictures/demofondo1.jpg"
+									"src": "/C:/Users/mcamp/Pictures/fondofiambres.png"
+								},
+								{
+									"key": "tipofile",
+									"value": "Identificacion",
+									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/users/6633038ab1e24f66bd9be562/avatarprofile",
+							"raw": "http://localhost:8080/api/users/66448682b500fc62ea4584f9/documents",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -358,8 +362,290 @@
 							"path": [
 								"api",
 								"users",
-								"6633038ab1e24f66bd9be562",
-								"avatarprofile"
+								"66448682b500fc62ea4584f9",
+								"documents"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "uploadDocuments",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "profileImage",
+											"value": "/profileImage",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": [
+												"/C:/Users/mcamp/Pictures/demofondo1.jpg",
+												"/C:/Users/mcamp/Pictures/fondofiambres.png",
+												"/C:/Users/mcamp/Pictures/logo_axion.png"
+											]
+										},
+										{
+											"key": "profileImage",
+											"value": "profiles",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users/661be3986a1b1e189c5c79ab/documents",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"661be3986a1b1e189c5c79ab",
+										"documents"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://127.0.0.1:5501"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2-eoX0dku9ba8cNUXvu/DyeabcC+s\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Apr 2024 21:08:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "ok"
+						}
+					]
+				},
+				{
+					"name": "uploaddomicilio",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJub21icmUgdXN1YXJpbyIsImxhc3RfbmFtZSI6ImFwZWxsaWRvIHVzdWFyaW8iLCJlbWFpbCI6InVzdWFyaW9AdXN1YXJpbyIsImFnZSI6NTcsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoiNjYyMmFjYTQ4ZTVkOTQzZTc1MGZjZTg0In0sImlhdCI6MTcxMzYxMjM5OCwiZXhwIjoxNzEzNjE1OTk4fQ.PNJVYV993Fy3WQYFDDdBy7xr_dIdBcEPbDS-ccLLJTA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "documents",
+									"type": "file",
+									"src": "/C:/Users/mcamp/Pictures/fondofiambres.png"
+								},
+								{
+									"key": "tipofile",
+									"value": "Domicilio",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/66448682b500fc62ea4584f9/documents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"66448682b500fc62ea4584f9",
+								"documents"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "uploadDocuments",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "profileImage",
+											"value": "/profileImage",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": [
+												"/C:/Users/mcamp/Pictures/demofondo1.jpg",
+												"/C:/Users/mcamp/Pictures/fondofiambres.png",
+												"/C:/Users/mcamp/Pictures/logo_axion.png"
+											]
+										},
+										{
+											"key": "profileImage",
+											"value": "profiles",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users/661be3986a1b1e189c5c79ab/documents",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"661be3986a1b1e189c5c79ab",
+										"documents"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "http://127.0.0.1:5501"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2-eoX0dku9ba8cNUXvu/DyeabcC+s\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Apr 2024 21:08:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "ok"
+						}
+					]
+				},
+				{
+					"name": "uploadEstadoCuenta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJub21icmUgdXN1YXJpbyIsImxhc3RfbmFtZSI6ImFwZWxsaWRvIHVzdWFyaW8iLCJlbWFpbCI6InVzdWFyaW9AdXN1YXJpbyIsImFnZSI6NTcsInJvbGUiOiJ1c2VyIiwidXNlcklkIjoiNjYyMmFjYTQ4ZTVkOTQzZTc1MGZjZTg0In0sImlhdCI6MTcxMzYxMjM5OCwiZXhwIjoxNzEzNjE1OTk4fQ.PNJVYV993Fy3WQYFDDdBy7xr_dIdBcEPbDS-ccLLJTA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "documents",
+									"type": "file",
+									"src": "/C:/Users/mcamp/Pictures/logo_axion.png"
+								},
+								{
+									"key": "tipofile",
+									"value": "Estado",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/66448682b500fc62ea4584f9/documents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"66448682b500fc62ea4584f9",
+								"documents"
 							]
 						}
 					},
@@ -828,7 +1114,10 @@
 					"name": "Mocking",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -928,7 +1217,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/carts/6630cc0df1d0e56e592d7378/products/6628f9a0503c2190cc732250",
+							"raw": "http://localhost:8080/api/carts/663d60d691cb03fe6dd9a242/products/663e7fed124b63bc0a89e0e8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -937,9 +1226,9 @@
 							"path": [
 								"api",
 								"carts",
-								"6630cc0df1d0e56e592d7378",
+								"663d60d691cb03fe6dd9a242",
 								"products",
-								"6628f9a0503c2190cc732250"
+								"663e7fed124b63bc0a89e0e8"
 							]
 						}
 					},
@@ -1010,8 +1299,44 @@
 				{
 					"name": "purchase",
 					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/carts/663d60d691cb03fe6dd9a242/purchase",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carts",
+								"663d60d691cb03fe6dd9a242",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCartByUserId",
+					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/carts/currentcart/6638efc6e425d42fbeb1c9e7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"carts",
+								"currentcart",
+								"6638efc6e425d42fbeb1c9e7"
+							]
+						}
 					},
 					"response": []
 				}
