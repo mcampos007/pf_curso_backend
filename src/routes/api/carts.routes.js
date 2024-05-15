@@ -1,8 +1,9 @@
-import CustomRouter from '../api/custom.router.js';
+import CustomRouter from './custom.router.js';
 import { validateCart, checkUserCart } from '../../helpers/validateCart.js';
 import {
   getAll,
   getById,
+  getByUserId,
   save,
   addProductToCart,
   deleteProductToCart,
@@ -19,6 +20,16 @@ export default class CartsRouter extends CustomRouter {
 
     // Recuperar todos los productos del carrito
     this.get('/:cid', ['USER', 'PREMIUM', 'ADMIN'], getById);
+
+    //Recuperar el carrito del usuario logueado
+    this.get(
+      '/currentCart/:uid',
+      ['USER', 'PREMIUM'],
+      getByUserId,
+      (req, res) => {
+        //console.log(req.params.uid);
+      }
+    );
 
     //Registrar un producto a uncarrito
     this.post(

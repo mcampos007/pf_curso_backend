@@ -2,6 +2,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import handlebars from 'express-handlebars';
+
 import __dirname from './helpers/utils.js';
 import { addLogger } from './helpers/logger.js';
 import MongoStore from 'connect-mongo';
@@ -17,7 +18,7 @@ import swaggerUiExpres from 'swagger-ui-express';
 import ViewsRouter from './routes/views/views.router.js';
 import sessionRouter from './routes/sessions.routes.js';
 import ProductsRouter from './routes/api/products.routes.js';
-import CartsRouter from './routes/mongo/carts.routes.js';
+import CartsRouter from './routes/api/carts.routes.js';
 import MessagesRouter from './routes/chat/messages.routes.js';
 import PasswordRouter from './routes/mongo/password.routes.js';
 import UsersdRouter from './routes/api/users.router.js';
@@ -96,6 +97,7 @@ app.use(express.static(`${__dirname}/public`));
 //Configuración del motor de vistas Handlebars:
 //Inicializndo el motor
 // console.log(__dirname);
+
 app.engine(
   'hbs',
   handlebars.engine({
@@ -109,6 +111,7 @@ app.engine(
     },
   })
 );
+
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 

@@ -1,0 +1,70 @@
+<nav class="navbar navbar-transparent navbar-absolute">
+    <div class="container">
+        {{> navbar}}
+    </div>
+</nav>
+<div class="wrapper">
+    <div class="header header-filter" style="background-image: url('../assets/img/city.jpg'); "></div>
+    <div class="main main-raised">
+        <div class="profile-content">
+            <div class="container">
+                <div class="tim-type">
+                    <h1><span class="tim-note"> Mi Carrito</span> </h1>
+                    
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-left">Producto</th>
+                            <th class="text-right">Precio</th>
+                            <th class="text-right">Cantidad</th>
+                            <th class="text-right">Importe</th>
+                            <th class="text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each currentCart}}
+                        <tr>
+                            <td class="text-center">{{this.product.code}}</td>
+                            <td>{{this.product.title}}</td>
+                            <td class="text-right">{{this.product.price}}</td>
+                            <td class="text-right">{{this.quantity}}</td>
+                            <td class="text-right"> {{this.importe}}</td>
+                            <td class="td-actions text-right">
+                               <form id = "frmId['{{this._id}}']" class="product-form">
+                                    <input type="hidden" name="cid" value="{{this.id}}" >
+                                    <input type="hidden" name="pid" value="{{this._id}}" >
+                                    <button type="submit" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs"  id="removeButton">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                               </form>
+                                
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                
+                
+                <div class="alert alert-info">
+                    <div class="container-fluid text-right">
+                    <div class="alert-icon">
+                        <i class="material-icons">info_outline</i>
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                    </button>
+                    <b>Importe Total: ${{cartTotal}}</b> 
+                    </div>
+                </div>
+
+            
+            </div>
+        </div>
+    
+    </div>
+</div>
+    
+
+<script src="/js/removeProducts.js"></script>

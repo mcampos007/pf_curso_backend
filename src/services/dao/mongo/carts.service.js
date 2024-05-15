@@ -8,6 +8,7 @@ export default class CartDao {
 
   save = async (cart) => {
     let result = await cartModel.create(cart);
+
     return result;
   };
 
@@ -57,24 +58,21 @@ export default class CartDao {
   };
 
   deleteProductToCart = async (cart, id) => {
-    const nuevoProducto = {
-      product: id,
-      quantity: 1,
-    };
-    const indexProductoExistente = cart.products.findIndex(
-      (item) => item.product.toHexString() === id
-    );
-    if (indexProductoExistente !== -1) {
+    // Buscar el elemento en el array products
+    const index = cart.products.findIndex((item) => item._id.toString() === id);
+
+    if (index !== -1) {
       // Si el producto ya existe, decrementar la cantidad en 1
-      cart.products[indexProductoExistente].quantity -= 1;
+      cart.products[index].quantity -= 1;
       // Verificar si la cantidad llega a 0 y eliminar el elemento del array
-      if (cart.products[indexProductoExistente].quantity === 0) {
-        cart.products.splice(indexProductoExistente, 1);
+      if (cart.products[index].quantity === 0) {
+        cart.products.splice(index, 1);
       }
     } else {
       // Si el producto no existe, agregarlo al array
       //cart.products.push(nuevoProducto);
     }
+
     const cid = cart._id;
     const result = this.update(cid, cart);
     return result;
@@ -92,7 +90,10 @@ export default class CartDao {
   };
 
   findByUser = async (id) => {
-    const result = await cartModel.findOne({ user: id });
+    const result = await cartModel
+      .findOne({ user: id })
+      .populate('products.product');
+
     return result;
   };
 

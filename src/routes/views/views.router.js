@@ -3,11 +3,17 @@ import config from '../../config/config.js';
 import axios from 'axios';
 import errorHandler from '../../services/errors/middlewares/index.js';
 import { getAvatar } from '../../controllers/users.controller.js';
+import { save, getByUserId } from '../../controllers/carts.controller.js';
+import {
+  cartService,
+  productService,
+  ticketService,
+} from '../../services/service.js';
 
 export default class ViewsRouter extends CustomRouter {
   init() {
     //                Rutas Comunes
-    // Index
+    //    Index
     this.get('/', ['PUBLIC'], (req, res) => {
       const data = {
         title: 'Torolf - Ecommerce',
@@ -21,7 +27,7 @@ export default class ViewsRouter extends CustomRouter {
       res.render('index', data);
     });
 
-    //Login
+    //    Login
     this.get('/login', ['PUBLIC'], (req, res) => {
       const data = {
         title: 'signup-page',
@@ -31,7 +37,7 @@ export default class ViewsRouter extends CustomRouter {
       res.render('users/login', data);
     });
 
-    //Logout
+    //    Logout
     this.get('/logout', ['USER', 'ADMIN', 'PREMIUM'], (req, res) => {
       res.clearCookie('jwtCookieToken');
       // Enviar una respuesta al cliente
@@ -49,7 +55,7 @@ export default class ViewsRouter extends CustomRouter {
       // });
     });
 
-    //Home
+    //    Home
     this.get('/home', ['USER', 'PREMIUM', 'ADMIN'], (req, res) => {
       // console.log(req.user.role)
       let isAdmin = false;
@@ -71,7 +77,7 @@ export default class ViewsRouter extends CustomRouter {
       res.render('home', data);
     });
 
-    // Ver Perfil
+    //    Ver Perfil
     this.get('/profile', ['USER', 'ADMIN', 'PREMIUM'], async (req, res) => {
       const data = req.user;
       let isAdmin = false;
@@ -84,7 +90,7 @@ export default class ViewsRouter extends CustomRouter {
       data.username = req.user.name;
       // apiUrl = `http://localhost:${config.port}/api/users/${req.user.userId}/avatar`;
       const avatar = await getAvatar(req.user.userId, res);
-      console.log(1, avatar);
+      console.log(2, avatar);
       //data.role: req.user.role,
       data.isAdmin = isAdmin;
       data.isPremium = isPremium;
@@ -111,9 +117,7 @@ export default class ViewsRouter extends CustomRouter {
       //   });
     });
 
-    // chage role
-
-    // Link to password Reset
+    //    Link to password Reset
     this.get('/linkpasswordreset', ['PUBLIC'], (req, res) => {
       const data = {
         title: 'Link to Password-reset',
@@ -123,7 +127,7 @@ export default class ViewsRouter extends CustomRouter {
       res.render('users/requestpasswordresetlink', data);
     });
 
-    // Reasignación de Password
+    //    Reasignación de Password
     this.get('/passwordreset/:token', ['PUBLIC'], (req, res) => {
       const { token } = req.params;
       const data = {
@@ -134,7 +138,7 @@ export default class ViewsRouter extends CustomRouter {
       res.render('users/passwordreset', data);
     });
 
-    //  Regiter
+    //    Regiter
     this.get('/register', ['PUBLIC'], (req, res) => {
       const data = {
         title: 'Register-page',
@@ -144,7 +148,7 @@ export default class ViewsRouter extends CustomRouter {
     });
 
     //                                Rutas Admin
-    // Products
+    //    Products
     this.get('/admin/products', ['ADMIN'], async (req, res) => {
       try {
         const { limit, page, query, sort } = req.query;
@@ -187,8 +191,8 @@ export default class ViewsRouter extends CustomRouter {
       }
     });
 
-    //Rutas                           User
-    //Products
+    //                                Rutas  User
+    //    Products
     this.get('/products', ['USER'], async (req, res) => {
       try {
         const { limit, page, query, sort } = req.query;
@@ -207,8 +211,13 @@ export default class ViewsRouter extends CustomRouter {
         if (req.user.role === 'admin') isAdmin = true;
         if (req.user.role === 'premium') isPremium = true;
         if (req.user.role === 'user') isUser = true;
-        const products = response.data.payload;
-        console.log(products);
+        const docProducts = response.data.payload;
+
+        const productosConUserId = docProducts.docs.map((producto) => ({
+          ...producto,
+          userId: req.user.userId,
+        }));
+        const products = { docs: productosConUserId };
         const data = {
           title: 'profile-page',
           bodyClass: 'profile-page',
@@ -232,40 +241,98 @@ export default class ViewsRouter extends CustomRouter {
       }
     });
 
-    //Add to Cart
-    this.post('/addToCart', ['USER'], async (req, res) => {
-      try {
-        // console.log(req.user)
-        // console.log(req.body)
-        const data = {
-          products: [
-            {
-              product: req.product_id, // Reemplaza con un ID de producto existente
-              quantity: 1,
-            },
-          ],
-          user: req.user.userId,
-        };
-        const token = req.token;
-        console.log(token);
-        const result = await axios.post(
-          `http://localhost:${config.port}/api/carts`,
-          data,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (!result) {
-          console.log(error);
-          throw new Error('Error al regitrar Cart');
-        } // console.log(result)
-        res.send('enviado');
-      } catch (error) {
-        // Manejo del error
-        console.error(error);
-      }
+    //    Add to Cart
+    this.post('/addToCart', ['USER', 'PREMIUM'], async (req, res) => {
+      const result = await save();
+    });
+
+    //    view current cart
+    this.get('/viewCart', ['USER', 'PREMIUM'], async (req, res) => {
+      const uid = req.user.userId;
+      const apiUrl = `http://localhost:${config.port}/api/carts/currentCart/${uid}`;
+      const reqData = {
+        method: req.method,
+        url: req.url,
+        headers: req.headers,
+        data: req.body,
+      };
+      const response = await axios(apiUrl, reqData);
+      const cart = response.data.payload;
+      const id = cart._id;
+
+      const productsWithImporte = cart.products.map((item) => {
+        const importe = item.quantity * item.product.price; // Calcular el importe
+        return { ...item, importe }; // Agregar la propiedad "importe" al objeto y devolverlo
+      });
+
+      const currentCart = productsWithImporte.map((item) => {
+        //const importe = item.quantity * item.product.price; // Calcular el importe
+        return { ...item, id }; // Agregar la propiedad "importe" al objeto y devolverlo
+      });
+
+      // Suma de los importes
+      const cartTotal = currentCart.reduce(
+        (total, elemento) => total + elemento.importe,
+        0
+      );
+      const roundedTotal = parseFloat(cartTotal.toFixed(2));
+
+      let isAdmin = false;
+      let isPremium = false;
+      let isUser = false;
+      if (req.user.role === 'admin') isAdmin = true;
+      if (req.user.role === 'premium') isPremium = true;
+      if (req.user.role === 'user') isUser = true;
+
+      // username: req.user.name,
+      //   role: req.user.role,
+      //   isAdmin,
+      //   isPremium,
+      //   isUser,
+
+      const data = {
+        title: 'profile-page',
+        bodyClass: 'profile-page',
+      };
+      res.render('carts/index', {
+        title: 'Mi Carrito',
+        currentCart,
+        bodyClass: 'profile-page',
+        username: req.user.name,
+        role: req.user.role,
+        isAdmin,
+        isPremium,
+        isUser,
+        roundedTotal,
+        cartId: id,
+      });
+    });
+
+    //    Purchase view
+    this.get('/purchaseCart:/cid', ['USER', 'PREMIUM'], async (req, res) => {
+      res.render('carts/purchase', {
+        title: 'Confrmar mi compra!!!',
+        currentCart,
+        bodyClass: 'profile-page',
+        username: req.user.name,
+        role: req.user.role,
+        isAdmin,
+        isPremium,
+        isUser,
+        cartTotal,
+      });
+    });
+
+    //  change role view
+    this.get('/changerole', ['USER', 'PREMIUM'], async (req, res) => {
+      console.log(req.user);
+      res.render('users/changerole', {
+        title: 'Cambiar el rol del usuario',
+        bodyClass: 'profile-page',
+        username: req.user.name,
+        role: req.user.role,
+        uid: req.user.userId,
+      });
     });
 
     this.router.use(errorHandler);

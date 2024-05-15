@@ -1,4 +1,5 @@
 import userModel from '../../db/models/users.model.js';
+import __dirname from '../../../helpers/utils.js';
 
 export default class UserDao {
   constructor() {
@@ -55,11 +56,19 @@ export default class UserDao {
 
   getAvatar = async (id) => {
     // const result = this.findById(id);
+
     const result = await userModel.findOne(
       { _id: id, 'documents.name': 'profile' },
       { 'documents.$': 1 }
     );
-    const referencia = result.documents[0].reference;
+    let referencia = '';
+    console.log(__dirname);
+    if (!result) {
+      referencia = `${__dirname}/public/assets/img/default-avatar.png`;
+    } else {
+      referencia = result.documents[0].reference;
+    }
+
     return referencia;
   };
 }

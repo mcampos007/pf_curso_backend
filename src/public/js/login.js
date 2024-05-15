@@ -17,16 +17,17 @@ form.addEventListener('submit', (e) => {
         //Ubicacion de las vistas
         // console.log("Usuario autorizado");
         result.json().then((json) => {
-          //LocalStorage
-          /*  console.log(json);
-                        localStorage.setItem('authToken', json.jwt);
-                    */
-          // 2do:cookie
-          // console.log(json);
-          // console.log("Cookies generadas:");
-          // console.log(document.cookie);
-          // alert(result.message);
-          window.location.replace('/home');
+          //Crear un carrito
+          fetch('/api/carts', {
+            method: 'POST',
+            //body: JSON.stringify(obj),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).then((result) => {
+            window.location.replace('/home');
+          });
+
           //console.log(result);
           // window.location.replace('/products');
           //alert(json.jwt);

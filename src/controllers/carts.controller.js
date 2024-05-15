@@ -104,6 +104,7 @@ export const save = async (req, res) => {
     // Verificar si hay un cart para el usuario
     // console.log(1, req.body);
     const cartExist = await cartService.findByUser(req.user.userId);
+
     let result = {};
     let newCart = {};
     if (!cartExist) {
@@ -137,6 +138,7 @@ export const save = async (req, res) => {
       result = await cartService.save(newCart);
     } else {
       // Iterar sobre los nuevos productos
+
       const data = new CartDTO(req.body);
       for (const newProduct of data.products) {
         // Verificar si el producto ya existe en el carrito original
@@ -167,6 +169,7 @@ export const save = async (req, res) => {
 
     res.status(200).send({ status: 'success', payload: result });
   } catch (error) {
+    console.log(error);
     res
       .status(500)
       .send({ error: error, message: 'No se pudo guardar el Cart.' });
@@ -182,6 +185,19 @@ export const getById = async (req, res) => {
     res.status(500).send({
       error: error,
       message: 'No se pudo recuperar productos del carrito.',
+    });
+  }
+};
+export const getByUserId = async (req, res) => {
+  const uid = req.params.uid;
+  try {
+    const cart = await cartService.findByUser(uid);
+
+    res.status(200).send({ status: 'success', payload: cart });
+  } catch (error) {
+    res.status(500).send({
+      error: error,
+      message: 'No se puedo recuperar el carrito del usuario.',
     });
   }
 };
@@ -253,11 +269,13 @@ export const deleteProductToCart = async (req, res) => {
         .status(500)
         .send({ message: 'No existe el carrito a actualizar.' });
     }
+
     if (cart.user.toString() !== req.user.userId) {
       return res
         .status(500)
         .send({ message: 'You are not authorized to update the cart.' });
     }
+
     let result = await cartService.deleteProductToCart(cart, pid);
 
     res.status(200).send({ status: 'success', payload: result });
@@ -531,6 +549,7 @@ function sendEmail(data) {
       });
     } */
 }
+
 /* export const findByTitle = async(req, res)=>{
     try {
         let {title} = req.params;

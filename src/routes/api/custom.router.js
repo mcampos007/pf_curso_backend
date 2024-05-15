@@ -18,8 +18,8 @@ export default class CustomRouter {
   init() {} //Esta inicialilzacion se usa para las clases heredadas.
 
   get(path, policies, ...callbacks) {
-    /* console.log("Entrando por GET a custom router con Path: " + path);
-        console.log(policies); */
+    // console.log('Entrando por GET a custom router con Path: ' + path);
+    // console.log(policies);
     this.router.get(
       path,
       this.handlePolicies(policies),
@@ -59,8 +59,8 @@ export default class CustomRouter {
   }
 
   handlePolicies = (policies) => (req, res, next) => {
-    /*  console.log("Politicas a evaluar:");
-        console.log(policies); */
+    // console.log('Politicas a evaluar:');
+    // console.log(policies);
 
     //Validar si tiene acceso publico:
     if (policies[0] === 'PUBLIC') return next();
@@ -85,7 +85,8 @@ export default class CustomRouter {
     }
 
     if (!token) {
-      //return res.redirect('/login')
+      //return res.redirect('/login');
+
       return res.status(401).send({ error: 'Token missing, Unauthorized!' });
     }
     // Validamos token
@@ -139,7 +140,6 @@ export default class CustomRouter {
       try {
         await callback.apply(this, item);
       } catch (error) {
-        console.error(error);
         // params[1] hace referencia al res
         // console.log("llegue")
         item[1].status(500).send(error);

@@ -376,7 +376,9 @@ export const uploadDocument = async (req, res) => {
 export const getAvatar = async (uid, res) => {
   try {
     // let { uid } = req.params;
+
     const userExist = await userService.findById(uid);
+
     if (!userExist) {
       return res.status(500).send({
         status: 'Error',
@@ -384,9 +386,10 @@ export const getAvatar = async (uid, res) => {
       });
     }
     const avatar = await userService.getAvatar(uid);
+    console.log(1, avatar);
     return avatar;
   } catch (error) {
-    //console.log(error);
+    console.log(3, error);
     res.status(500).send({ status: 'error', error });
     //return res.send('Error');
   }

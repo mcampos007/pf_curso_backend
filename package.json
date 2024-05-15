@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
     "local": "nodemon src/app.js --mode local --persist mongodb",
-    "prod": "node src/app.js --mode prod",
+    "prod": "nodemon src/app.js --mode prod",
     "dev": "nodemon src/app.js --mode dev  --persist mongodb",
     "testing": "nodemon src/app.js --mode test --persist mongodb"
   },
