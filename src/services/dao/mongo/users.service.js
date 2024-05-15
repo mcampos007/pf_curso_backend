@@ -64,7 +64,7 @@ export default class UserDao {
     let referencia = '';
     console.log(__dirname);
     if (!result) {
-      referencia = `${__dirname}/public/assets/img/default-avatar.png`;
+      referencia = `assets/img/default-avatar.png`;
     } else {
       referencia = result.documents[0].reference;
     }

@@ -27,7 +27,6 @@ form.addEventListener('submit', function (event) {
 
   const apiUrl = `/api/users/${userId}avatarprofile`;
 
-  console.log(3, apiUrl);
   axios
     .post(apiUrl, formData, {
       headers: {
@@ -36,8 +35,28 @@ form.addEventListener('submit', function (event) {
     })
     .then((response) => {
       console.log('Respuesta:', response.data);
+      if (response.data.status === 'ok') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Actualización de imágen de Perfil',
+          text: 'La imagen de perfil del usuario se ha actualizado correctamente',
+          willClose: () => {
+            // Aquí colocas la URL a la que deseas redirigir
+            window.location.replace('/profile');
+          },
+        });
+      }
     })
     .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ups, error al actualizal la imagen de Perfil',
+        text: error,
+        willClose: () => {
+          // Aquí colocas la URL a la que deseas redirigir
+          window.location.replace('/profile');
+        },
+      });
       console.error('Error:', error);
     });
 });

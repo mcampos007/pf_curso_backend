@@ -26,8 +26,9 @@ document.addEventListener('submit', function (event) {
         if (
           data.error === 'No esta autorizado a cambiar le perfil del usuario'
         ) {
-          title = 'Confirmación del Rol';
-          text = 'No estas autorizado a realizar el cambio!!!';
+          title = 'Confirmación de cambio de Rol';
+          text =
+            'No estas autorizado a realizar el cambio o falta la información requerida!!!';
           Swal.fire({
             icon: 'error',
             title: title,

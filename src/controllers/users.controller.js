@@ -49,11 +49,7 @@ export const premiumUserChange = async (req, res) => {
       let autorizarChange = true;
       if (user.role === 'premium') autorizarChange = true;
       if (user.role === 'user') {
-        const requiredDocuments = [
-          'Identificacion',
-          'Comprobante de domicilio',
-          'Comprobante de estado de cuenta',
-        ]; // Documentos requeridos
+        const requiredDocuments = ['Identificacion', 'Domicilio', 'Estado']; // Documentos requeridos
         for (const documentName of requiredDocuments) {
           const documentExists = user.documents.some(
             (document) => document.name === documentName
@@ -331,6 +327,7 @@ export const uploadProfile = async (req, res) => {
 
 export const uploadDocument = async (req, res) => {
   // try {
+  console.log(req.body);
   const { uid } = req.params;
 
   let cantFiles = 0;
@@ -344,7 +341,7 @@ export const uploadDocument = async (req, res) => {
       const reference = `images/documents/${file.filename}`;
 
       const newDocument = {
-        name: 'document',
+        name: req.body.tipofile,
         reference: reference,
       };
 
@@ -386,7 +383,7 @@ export const getAvatar = async (uid, res) => {
       });
     }
     const avatar = await userService.getAvatar(uid);
-    console.log(1, avatar);
+
     return avatar;
   } catch (error) {
     console.log(3, error);

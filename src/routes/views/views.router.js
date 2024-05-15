@@ -90,7 +90,7 @@ export default class ViewsRouter extends CustomRouter {
       data.username = req.user.name;
       // apiUrl = `http://localhost:${config.port}/api/users/${req.user.userId}/avatar`;
       const avatar = await getAvatar(req.user.userId, res);
-      console.log(2, avatar);
+
       //data.role: req.user.role,
       data.isAdmin = isAdmin;
       data.isPremium = isPremium;
